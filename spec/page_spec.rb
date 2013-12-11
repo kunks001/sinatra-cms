@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Page do
-	let(:page){ Page.new(title: "new page", content: "hello world") }
+	let(:page){ Page.new(title: "test page", content: "hello world") }
 
 	subject { page }
 

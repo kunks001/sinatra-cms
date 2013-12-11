@@ -1,7 +1,7 @@
 test:
   sessions:
     default:
-      database: cms
+      database: cmstest
       hosts:
         - localhost:27017
 development:
