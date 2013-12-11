@@ -25,6 +25,11 @@ class Server < Sinatra::Base
 		haml :show
 	end
 
+	post '/pages' do
+	  page = Page.create(params[:page])
+	  redirect to("/pages/#{page.id}")
+	end
+
 end
 
 class Page

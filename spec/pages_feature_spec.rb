@@ -30,7 +30,7 @@ feature 'Pages' do
     end
 
     describe 'creating a page' do
-      before do
+      before(:all) do
         visit '/pages/new'
         fill_in 'page[title]', with: 'new page'
         fill_in 'page[content]', with: 'foobar'
@@ -50,7 +50,7 @@ feature 'Pages' do
       it 'should be accessible from the pages index' do
         visit '/pages'
         click_link 'new page'
-        expect(current_path).to eq 'pages/:id'
+        expect(current_path).to match /\/pages\/[a-zA-Z\d]+/
       end
     end
   end
