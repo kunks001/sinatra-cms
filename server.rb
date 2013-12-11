@@ -7,6 +7,12 @@ configure do
 end
 
 class Server < Sinatra::Base
+
+	get '/pages' do
+	  @pages = Page.all
+	  haml :index
+	end
+
 end
 
 class Page
