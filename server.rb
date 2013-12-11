@@ -13,6 +13,12 @@ class Server < Sinatra::Base
 	  haml :index
 	end
 
+	get '/pages/:id' do
+		@page = Page.find(params[:id])
+		@title = @page.title
+		haml :show
+	end
+
 end
 
 class Page
