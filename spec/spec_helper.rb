@@ -23,10 +23,10 @@ RSpec.configure do |config|
   config.order = 'random'
 
   config.before(:suite)do
-	  DatabaseCleaner.clean
-	end
-	 
-	config.before(:each) do
-	  DatabaseCleaner[:mongo_mapper].strategy = :truncation
-	end
+    DatabaseCleaner.clean
+  end
+   
+  config.before(:each) do
+    DatabaseCleaner[:mongo_mapper].strategy = :truncation
+  end
 end
