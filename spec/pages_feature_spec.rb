@@ -37,14 +37,20 @@ feature 'Pages' do
         click_button 'Create'
       end
 
-      it 'should make the new page available' do
+      it 'should redirect the user to the new page' do
+        expect(page).to have_title 'new page'
+        expect(page).to have_content 'foobar'
+      end
+
+      it 'should list the page on the pages index' do
+        visit '/pages'
         expect(page).to have_link 'new page'
       end
 
-      it 'should have a title and content' do
-        click_button 'new page'
-        expect(page).to have_title 'new page'
-        expect(page).to have_content 'foobar'
+      it 'should be accessible from the pages index' do
+        visit '/pages'
+        click_link 'new page'
+        expect(current_path).to eq 'pages/:id'
       end
     end
   end
