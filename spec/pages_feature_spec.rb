@@ -25,8 +25,8 @@ feature 'Pages' do
     it 'should contain a form for a new page' do
       visit '/pages/new'
       expect(page).to have_title 'add page'
-      expect(page).to have_field("title")
-      expect(page).to have_field("content")
+      expect(page).to have_field("page[title]")
+      expect(page).to have_field("page[content]")
     end
   end
 end

@@ -1,0 +1,8 @@
+%h1 
+  New Page
+%form(action="/pages" method="POST")
+  %fieldset
+    %legend 
+      Create a new page
+    = haml :form
+  %input(type="submit" value="Create")
