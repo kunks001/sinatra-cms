@@ -43,6 +43,11 @@ class Server < Sinatra::Base
     redirect to("/pages/#{page.id}")
   end
 
+  delete '/pages/delete/:id' do
+    Page.find(params[:id]).destroy
+    redirect to('/pages')
+  end
+
 end
 
 class Page

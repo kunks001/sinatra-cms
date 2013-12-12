@@ -36,7 +36,7 @@ feature 'Pages' do
     end
 
     it 'should contain a link to the delete function' do
-      expect(page).to have_link 'Delete this page'
+      expect(page).to have_button 'Delete this page'
       # click_link 'delete'
       # expect(page.current_path).to eq '/pages'
       # expect(page).to_not have_content 'test page'
@@ -98,9 +98,8 @@ feature 'Pages' do
 
   context 'delete' do
     it 'should allow the user to delete a page' do
-      visit '/pages'
-      click_link 'test page'
-      click_link 'Delete this page'
+      visit "pages/#{@test_page.id}"
+      click_button 'Delete this page'
       expect(page.current_path).to eq '/pages'
       expect(page).to_not have_content 'test page'
     end

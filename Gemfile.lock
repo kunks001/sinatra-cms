@@ -45,6 +45,8 @@ GEM
       diff-lcs (>= 1.1.3, < 2.0)
     rspec-mocks (2.14.4)
     sass (3.2.12)
+    shotgun (0.9)
+      rack (>= 1.0)
     sinatra (1.4.4)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -64,4 +66,5 @@ DEPENDENCIES
   mongoid
   rspec
   sass
+  shotgun
   sinatra
