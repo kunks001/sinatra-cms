@@ -104,4 +104,16 @@ feature 'Pages' do
       expect(page).to_not have_content 'test page'
     end
   end
+
+  context 'urls' do
+    let(:page1) { Page.create(title: 'Page One', content: 'hello world')  }
+    let(:page2) { Page.create(title: 'Page Two', content: 'foobar')  }
+   
+    it 'should display the page title' do
+      visit '/pages/page-one'
+      expect(page).to have_content 'hello world'
+      visit '/pages/page-two'
+      expect(page).to have_content 'foobar'
+    end
+  end
 end
