@@ -4,12 +4,17 @@ feature 'Pages' do
   before(:all) { Page.create(title: 'test page', content: 'hello world') }
 
   context 'index' do
+    before { visit '/pages' }
+
     it 'should display all pages' do
-      visit '/pages'
       expect(page).to have_title 'Simple Sinatra CMS'
       expect(page).to have_link 'test page'
-      end
     end
+
+    it "should contain a link to the 'new' page" do
+      expect(page).to have_link 'add page'
+    end
+  end
 
   context 'show' do
     it 'should display a page' do
