@@ -19,6 +19,11 @@ class Server < Sinatra::Base
 		haml :new
 	end
 
+	get '/pages/:id/edit' do
+	  @page = Page.find(params[:id])
+	  haml :edit
+	end
+
 	get '/pages/:id' do
 		@page = Page.find(params[:id])
 		@title = @page.title

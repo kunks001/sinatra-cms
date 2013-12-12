@@ -80,7 +80,7 @@ feature 'Pages' do
   context 'edit' do
     it 'should allow users to edit a page' do
       visit "/pages/#{@test_page.id}/edit"
-      expect(page).to have_content 'Edit this Page'
+      expect(page).to have_selector("h1", :text => 'Edit this Page')
       expect(page).to have_field('page[title]')
       expect(page).to have_field('page[content]')
     end
