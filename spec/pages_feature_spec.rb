@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 feature 'Pages' do
-  before(:all) { Page.create(title: 'test page', content: 'hello world') }
+  before(:all) { @test_page = Page.create(title: 'test page', content: 'hello world') }
 
   context 'index' do
     before { visit '/pages' }
@@ -17,23 +17,26 @@ feature 'Pages' do
   end
 
   context 'show' do
-    before { visit '/pages' }
+
+    before(:each) do 
+      visit '/pages'
+      click_link 'test page'
+    end
+
     it 'should display a page' do
       # visit '/pages'
-      click_link 'test page'
+      # click_link 'test page'
       expect(page).to have_title 'test page'
       expect(page).to have_content 'test page'
       expect(page).to have_content 'hello world'
     end
 
     it 'should contain a link to the edit page' do
-      expect(page).to have_link 'edit'
-      click_link 'edit'
-      expect(page).to have_selector 'h1', 'Edit Page'
+      expect(page).to have_link 'Edit this page'
     end
 
     it 'should contain a link to the delete function' do
-      expect(page).to have_link 'delete page'
+      expect(page).to have_link 'Delete this page'
       # click_link 'delete'
       # expect(page.current_path).to eq '/pages'
       # expect(page).to_not have_content 'test page'
@@ -74,10 +77,20 @@ feature 'Pages' do
     end
   end
 
+  context 'edit' do
+    it 'should allow users to edit a page' do
+      visit "/pages/#{@test_page.id}/edit"
+      expect(page).to have_content 'Edit this Page'
+      expect(page).to have_field('page[title]')
+      expect(page).to have_field('page[content]')
+    end
+  end
+
   context 'delete' do
     it 'should allow the user to delete a page' do
-      expect(page).to have_link 'delete page'
-      click_link 'delete'
+      visit '/pages'
+      click_link 'test page'
+      click_link 'Delete this page'
       expect(page.current_path).to eq '/pages'
       expect(page).to_not have_content 'test page'
     end

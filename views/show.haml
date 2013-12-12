@@ -2,3 +2,8 @@
   = @page.title
 - if @page.content
   = @page.content
+
+%a(href="/pages/#{@page.id}/Edit") 
+  Edit this page
+%a(href="/pages/delete/#{@page.id}") 
+  Delete this page
