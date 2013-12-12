@@ -17,12 +17,26 @@ feature 'Pages' do
   end
 
   context 'show' do
+    before { visit '/pages' }
     it 'should display a page' do
-      visit '/pages'
+      # visit '/pages'
       click_link 'test page'
       expect(page).to have_title 'test page'
       expect(page).to have_content 'test page'
       expect(page).to have_content 'hello world'
+    end
+
+    it 'should contain a link to the edit page' do
+      expect(page).to have_link 'edit'
+      click_link 'edit'
+      expect(page).to have_selector 'h1', 'Edit Page'
+    end
+
+    it 'should contain a link to the delete function' do
+      expect(page).to have_link 'delete page'
+      # click_link 'delete'
+      # expect(page.current_path).to eq '/pages'
+      # expect(page).to_not have_content 'test page'
     end
   end
 
@@ -57,6 +71,15 @@ feature 'Pages' do
         click_link 'new page'
         expect(current_path).to match /\/pages\/[a-zA-Z\d]{24}/
       end
+    end
+  end
+
+  context 'delete' do
+    it 'should allow the user to delete a page' do
+      expect(page).to have_link 'delete page'
+      click_link 'delete'
+      expect(page.current_path).to eq '/pages'
+      expect(page).to_not have_content 'test page'
     end
   end
 end
