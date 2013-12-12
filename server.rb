@@ -8,32 +8,40 @@ end
 
 class Server < Sinatra::Base
 
-	get '/pages' do
-	  @pages = Page.all
-	  haml :index
-	end
+  set :method_override, true
 
-	get '/pages/new' do
-		@page = Page.new
-		@title = 'add page'
-		haml :new
-	end
+  get '/pages' do
+    @pages = Page.all
+    haml :index
+  end
 
-	get '/pages/:id/edit' do
-	  @page = Page.find(params[:id])
-	  haml :edit
-	end
+  get '/pages/new' do
+    @page = Page.new
+    @title = 'add page'
+    haml :new
+  end
 
-	get '/pages/:id' do
-		@page = Page.find(params[:id])
-		@title = @page.title
-		haml :show
-	end
+  get '/pages/:id/edit' do
+    @page = Page.find(params[:id])
+    haml :edit
+  end
 
-	post '/pages' do
-	  page = Page.create(params[:page])
-	  redirect to("/pages/#{page.id}")
-	end
+  get '/pages/:id' do
+    @page = Page.find(params[:id])
+    @title = @page.title
+    haml :show
+  end
+
+  put '/pages/:id' do
+    page = Page.find(params[:id])
+    page.update_attributes(params[:page])
+    redirect to("/pages/#{page.id}")
+  end
+
+  post '/pages' do
+    page = Page.create(params[:page])
+    redirect to("/pages/#{page.id}")
+  end
 
 end
 

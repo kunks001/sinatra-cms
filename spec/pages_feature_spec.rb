@@ -90,7 +90,7 @@ feature 'Pages' do
       fill_in 'page[title]', with: 'edited page'
       fill_in 'page[content]', with: 'edited content'
       click_button 'Update'
-      expect(current_path).to match /\/pages\/[a-zA-Z\d]{24}/
+      expect(page.current_path).to match /\/pages\/[a-zA-Z\d]{24}/
       expect(page).to have_content 'edited page'
       expect(page).to have_content 'edited content'
     end

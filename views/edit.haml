@@ -1,7 +1,7 @@
 %h1 
   Edit this Page
 %form(action="/pages/#{@page.id}" method="POST")
-  %input(type="hidden" name="_method" value="PUT")
+  %input(type="hidden" name="_method" value="put")
   %fieldset
     %legend Edit page
     = haml :form
