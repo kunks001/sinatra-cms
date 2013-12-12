@@ -78,11 +78,21 @@ feature 'Pages' do
   end
 
   context 'edit' do
+    before(:each) { visit "/pages/#{@test_page.id}/edit" }
+
     it 'should allow users to edit a page' do
-      visit "/pages/#{@test_page.id}/edit"
       expect(page).to have_selector("h1", :text => 'Edit this Page')
       expect(page).to have_field('page[title]')
       expect(page).to have_field('page[content]')
+    end
+
+    it 'should redirect the user to the edited page' do
+      fill_in 'page[title]', with: 'edited page'
+      fill_in 'page[content]', with: 'edited content'
+      click_button 'Update'
+      expect(current_path).to match /\/pages\/[a-zA-Z\d]{24}/
+      expect(page).to have_content 'edited page'
+      expect(page).to have_content 'edited content'
     end
   end
 
