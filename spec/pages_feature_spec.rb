@@ -55,7 +55,7 @@ feature 'Pages' do
       it 'should be accessible from the pages index' do
         visit '/pages'
         click_link 'new page'
-        expect(current_path).to match /\/pages\/[a-zA-Z\d]+/
+        expect(current_path).to match /\/pages\/[a-zA-Z\d]{24}/
       end
     end
   end
