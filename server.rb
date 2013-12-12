@@ -26,21 +26,31 @@ class Server < Sinatra::Base
     haml :edit
   end
 
-  get '/pages/:id' do
-    @page = Page.find(params[:id])
-    @title = @page.title
+  get '/:permalink' do
+    begin
+      @page = Page.find_by(permalink: params[:permalink])
+      @title = @page.title
+    rescue
+      pass
+    end
     haml :show
   end
+
+  # get '/pages/:id' do
+  #   @page = Page.find(params[:id])
+  #   @title = @page.title
+  #   haml :show
+  # end
 
   put '/pages/:id' do
     page = Page.find(params[:id])
     page.update_attributes(params[:page])
-    redirect to("/pages/#{page.id}")
+    redirect to("#{page.permalink}")
   end
 
   post '/pages' do
     page = Page.create(params[:page])
-    redirect to("/pages/#{page.id}")
+    redirect to("#{page.permalink}")
   end
 
   delete '/pages/delete/:id' do
@@ -55,4 +65,9 @@ class Page
  
   field :title,   type: String
   field :content, type: String
+  field :permalink, type: String, default: -> { make_permalink }
+
+  def make_permalink
+    title.downcase.gsub(' ','-') if title
+  end
 end

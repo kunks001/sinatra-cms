@@ -24,8 +24,7 @@ feature 'Pages' do
     end
 
     it 'should display a page' do
-      # visit '/pages'
-      # click_link 'test page'
+
       expect(page).to have_title 'test page'
       expect(page).to have_content 'test page'
       expect(page).to have_content 'hello world'
@@ -37,9 +36,6 @@ feature 'Pages' do
 
     it 'should contain a link to the delete function' do
       expect(page).to have_button 'Delete this page'
-      # click_link 'delete'
-      # expect(page.current_path).to eq '/pages'
-      # expect(page).to_not have_content 'test page'
     end
   end
 
@@ -72,7 +68,7 @@ feature 'Pages' do
       it 'should be accessible from the pages index' do
         visit '/pages'
         click_link 'new page'
-        expect(current_path).to match /\/pages\/[a-zA-Z\d]{24}/
+        expect(page.current_path).to eq '/new-page'
       end
     end
   end
@@ -90,15 +86,14 @@ feature 'Pages' do
       fill_in 'page[title]', with: 'edited page'
       fill_in 'page[content]', with: 'edited content'
       click_button 'Update'
-      expect(page.current_path).to match /\/pages\/[a-zA-Z\d]{24}/
+      expect(page.current_path).to eq '/test-page'
       expect(page).to have_content 'edited page'
       expect(page).to have_content 'edited content'
     end
   end
-
   context 'delete' do
     it 'should allow the user to delete a page' do
-      visit "pages/#{@test_page.id}"
+      visit '/test-page'
       click_button 'Delete this page'
       expect(page.current_path).to eq '/pages'
       expect(page).to_not have_content 'test page'
@@ -106,13 +101,13 @@ feature 'Pages' do
   end
 
   context 'urls' do
-    let(:page1) { Page.create(title: 'Page One', content: 'hello world')  }
-    let(:page2) { Page.create(title: 'Page Two', content: 'foobar')  }
+    let!(:page1) { Page.create(title: 'Page One', content: 'hello world')  }
+    let!(:page2) { Page.create(title: 'Page Two', content: 'foobar')  }
    
     it 'should display the page title' do
-      visit '/pages/page-one'
+      visit '/page-one'
       expect(page).to have_content 'hello world'
-      visit '/pages/page-two'
+      visit '/page-two'
       expect(page).to have_content 'foobar'
     end
   end
