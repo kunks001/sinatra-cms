@@ -36,12 +36,6 @@ class Server < Sinatra::Base
     haml :show
   end
 
-  # get '/pages/:id' do
-  #   @page = Page.find(params[:id])
-  #   @title = @page.title
-  #   haml :show
-  # end
-
   put '/pages/:id' do
     page = Page.find(params[:id])
     page.update_attributes(params[:page])
